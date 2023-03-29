@@ -40,9 +40,8 @@ if [ "$EUID" -ne 0 ]
     exit
 fi
 
-lsbrelease=$(lsb_release -c | awk '{print $2}')
-if [ "$lsbrelease" != "bionic" ]
-    then echo "Please run on Ubuntu 18 (Bionic)"
+if [[ $(lsb_release -r | awk '{print ($2 >= "20.04")}') -eq 0 ]]; then 
+    echo "Please run on Ubuntu 20.04 (Focal Fossa) or later"
     lsb_release -a
     exit
 fi
